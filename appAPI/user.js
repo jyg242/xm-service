@@ -3,23 +3,39 @@ const mongoose = require('mongoose')
 let router = new Router()
 
 // 注册路由
-router.post('/register', async(ctx) => {
-    var abc = ctx.request.body
-        // console.log(abc)
-    const User = mongoose.model("User")
-    let newUser = new User(ctx.request.body)
+// router.post('/register', async(ctx) => {
+//     var abc = ctx.request.body
+//         // console.log(abc)
+//     const User = mongoose.model("User")
+//     let newUser = new User(ctx.request.body)
 
-    await newUser.save().then(() => {
+//     await newUser.save().then(() => {
+//         ctx.body = {
+//             code: 200,
+//             message: '注册成功'
+//         }
+//     }).catch(error => {
+//         ctx.body = {
+//             code: 500,
+//             message: error
+//         }
+//     })
+// })
+router.post('/register', async(ctx) => {
+    try {
+        var { userName, phone } = ctx.request.body
+        let createAt = Date.now();
+        const User = mongoose.model("User")
+            // let newUser = new User(ctx.request.body)
+            // await newUser.save().then(() => {
+        await User.create({ userName, phone, createAt })
         ctx.body = {
             code: 200,
             message: '注册成功'
         }
-    }).catch(error => {
-        ctx.body = {
-            code: 500,
-            message: error
-        }
-    })
+    } catch (error) {
+        ctx.body = { code: 500, message: error }
+    }
 })
 router.post('/all', async(ctx) => {
     try {

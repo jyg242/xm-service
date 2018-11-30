@@ -5,7 +5,7 @@ let ObjectId = Schema.Types.ObjectId //主键
 
 //创建userschema
 const userSchema = new Schema({
-    UserId: ObjectId,
+    // UserId: ObjectId,
     userName: {
         type: String,
         require: true
@@ -15,7 +15,7 @@ const userSchema = new Schema({
         require: true //必须的
     },
     // 
-    createAt: { type: Date, default: Date.now() },
+    createAt: { type: Date, require: true },
 })
 
 //发布模型
